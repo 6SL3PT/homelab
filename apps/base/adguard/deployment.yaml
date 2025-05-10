@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard
+  labels:
+    app: adguard-home
+    app.kubernetes.io/name: adguard
+    app.kubernetes.io/instance: adguard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard-home
+  template:
+    metadata:
+      labels:
+        app: adguard-home
+    spec:
+      containers:
+        - name: adguard-home
+          image: adguard/adguardhome:latest
+          env:
+            - name: AGH_CONFIG
+              valueFrom:
+                configMapKeyRef:
+                  name: adguard-config
+                  key: AdGuardHome.yaml
+          ports:
+            - containerPort: 53
+              name: dns-udp
+              protocol: UDP
+            - containerPort: 53
+              name: dns-tcp
+              protocol: TCP
+            - containerPort: 3000 #initial setup
+              name: http-initial
+              protocol: TCP
+            - containerPort: 80 #web gui
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: adguard-data
+              mountPath: /opt/adguardhome/work
+            - name: adguard-config
+              mountPath: /opt/adguardhome/conf
+      volumes:
+        - name: adguard-data
+          persistentVolumeClaim:
+            claimName: adguard-pvc
+        - name: adguard-config
+          configMap:
+            name: adguard-config
