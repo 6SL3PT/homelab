@@ -41,4 +41,4 @@ data:
       max_size: 100
       max_age: 3
       compress: false
-      local_time: false
+      local_time: true

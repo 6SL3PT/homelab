@@ -20,11 +20,13 @@ spec:
         - name: adguard-home
           image: adguard/adguardhome:latest
           env:
-            - name: AGH_CONFIG
-              valueFrom:
-                configMapKeyRef:
-                  name: adguard-config
-                  key: AdGuardHome.yaml
+            - name: TZ
+              value: "Asia/Bangkok"
+            # - name: AGH_CONFIG
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: adguard-config
+            #       key: AdGuardHome.yaml
           ports:
             - containerPort: 53
               name: dns-udp
@@ -45,15 +47,27 @@ spec:
             limits:
               cpu: "300m"
               memory: "256Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 5
           volumeMounts:
             - name: adguard-data
               mountPath: /opt/adguardhome/work
-            - name: adguard-config
-              mountPath: /opt/adguardhome/conf
+            # - name: adguard-config
+            #   mountPath: /opt/adguardhome/conf
       volumes:
         - name: adguard-data
           persistentVolumeClaim:
             claimName: adguard-pvc
-        - name: adguard-config
-          configMap:
-            name: adguard-config
+        # - name: adguard-config
+        #   configMap:
+        #     name: adguard-config
