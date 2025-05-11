@@ -4,6 +4,8 @@ namespace: kube-system
 resources:
   - release.yaml
   - repository.yaml
+  - ip-pool.yaml
+  - l2policy.yaml
 
 configMapGenerator:
   - name: cilium-values
