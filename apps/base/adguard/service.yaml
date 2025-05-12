@@ -4,7 +4,7 @@ metadata:
   name: adguard
   annotations:
     io.cilium/lb-ipam-pool: "apps-pool"
-    io.cilium/lb-ipam-ips: "192.168.1.196"
+    io.cilium/lb-ipam-ips: "192.168.86.196"
 spec:
   selector:
     app: adguard
