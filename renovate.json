@@ -1,8 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "timezone": "Asia/Bangkok",
-  "schedule": ["0 9 * * *"],
-  "description": "Schedule at 9AM everyday",
+  "schedule": ["* 18-22 * * 0,6"],
+  "description": "Schedule at 18-22PM every weekend",
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   }
