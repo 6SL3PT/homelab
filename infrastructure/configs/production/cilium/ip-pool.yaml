@@ -5,8 +5,8 @@ metadata:
   namespace: kube-system
 spec:
   blocks:
-    - start: "192.168.86.191"
-      stop: "192.168.86.195"
+    - start: "192.168.86.200"
+      stop: "192.168.86.205"
 
   serviceSelector:
     matchLabels:
@@ -19,8 +19,8 @@ metadata:
   namespace: kube-system
 spec:
   blocks:
-    - start: "192.168.86.196"
-      stop: "192.168.86.210"
+    - start: "192.168.86.206"
+      stop: "192.168.86.220"
 
   serviceSelector:
     matchLabels:
