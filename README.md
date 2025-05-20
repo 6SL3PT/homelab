@@ -45,3 +45,20 @@ Each domain has its own controllers and configurations, all organized under `inf
         ├── data # Controller for `databases` infrastructure
         └── production # Controller for `apps` infrastructure
 ```
+
+## 🔐 Secret Management
+
+<div style="display: flex; gap: 10px">
+    <img src="https://www.isjw.uk/images/azure/keyvault.png" height="50"/>
+    <img src="https://external-secrets.io/latest/pictures/eso-round-logo.svg" height="50">
+</div>
+
+I decided to use [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault) and inject them into cluster with [External Secrets Operator](https://external-secrets.io/).
+
+**Why cloud secret provider instead of self-hosted?**
+
+Ensuring that services are deployed only after the secret manager is fully initialized can be a challenge when using a GitOps approach. In my setup, I use FluxCD, which offers a `dependsOn` option. However, this option only ensures that services are deployed after their dependencies are reconciled, meaning Flux has applied the configuration to the cluster and the resource exists in the desired state. It does not guarantee that the resource is fully operational or initialized—specifically, that the secret manager is ready for use.
+
+Even when running the secret manager in a separate cluster to allow this cluster to start up first, maintaining the availability of a self-hosted secret manager remains complex. While a failure of the secret manager itself can be managed, the risk arises when other services depend on it and cannot restart due to the lack of access to the secret provider. This creates a single point of failure that could potentially disrupt the entire cluster.
+
+For these reasons, I decided to transition to a cloud-based secret provider. This approach decouples secret management from the cluster, simplifying maintenance and enhancing the overall reliability and resilience of the system.
