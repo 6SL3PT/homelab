@@ -33,10 +33,26 @@ Each domain has its own controllers and configurations, all organized under `inf
 ├── apps
 ├── databases
 ├── clusters # FluxCD bootstrap manifest
+└── infrastructure # Infrastructure for `apps` and `databases`
+    ├── configs # Depends on controllers
+    └── controllers
+```
+
+**Future Roadmap:**
+The plan is to decouple the data layer from the application, 
+which will involve establishing two separate clusters—one dedicated to 
+data and the other to application services for improved scalability and maintainability.
+
+The diagram below outlines the planned changes to the folder structure:
+
+```bash
+├── apps
+├── databases
+├── clusters
 │   ├── data # Reconciles changes for `databases` and `infrastructure/**/data`
 │   └── production # Reconciles changes for `apps` and `infrastructure/**/production`
 └── infrastructure # Infrastructure for `apps` and `databases`
-    ├── configs # Depends on controllers
+    ├── configs
     │   ├── base # Base configuration
     │   ├── data # Config for `databases` infrastructure
     │   └── production # Config for `apps` infrastructure
