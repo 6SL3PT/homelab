@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commafeed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commafeed
+
+  template:
+    metadata:
+      labels:
+        app: commafeed
+        try: "0"
+        policy-type: "app"
+
+    spec:
+      containers:
+        - name: commafeed
+          image: athou/commafeed:4.6.0
+
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          envFrom:
+            - configMapRef:
+                name: commafeed-configmap
+            - secretRef:
+                name: commafeed-container-env
+
+          ports:
+            - containerPort: 8082
+              protocol: TCP
+
+      restartPolicy: Always
