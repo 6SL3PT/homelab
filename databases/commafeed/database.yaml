@@ -19,11 +19,43 @@ spec:
     size: 5Gi
 
   bootstrap:
-    initdb:
+    recovery:
+      source: cluster-backup
       database: commafeed
       owner: commafeed
       secret:
         name: commafeed-db-creds
+
+  externalClusters:
+    - name: cluster-backup
+      barmanObjectStore:
+        destinationPath: s3://homelab-commafeed
+        endpointURL: https://d322d8d4cf96aba84430eba5cc9ea9c9.r2.cloudflarestorage.com
+        serverName: commafeed-db-production-cnpg-v0
+        s3Credentials:
+          accessKeyId:
+            name: r2-creds
+            key: commafeed-r2-access-key-id
+          secretAccessKey:
+            name: r2-creds
+            key: commafeed-r2-secret-access-key
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://homelab-commafeed
+      endpointURL: https://d322d8d4cf96aba84430eba5cc9ea9c9.r2.cloudflarestorage.com
+      s3Credentials:
+        accessKeyId:
+          name: r2-creds
+          key: commafeed-r2-access-key-id
+        secretAccessKey:
+          name: r2-creds
+          key: commafeed-r2-secret-access-key
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
+    retentionPolicy: 14d
 
   # handy: resources can be used to trigger a redeploy
   resources:
