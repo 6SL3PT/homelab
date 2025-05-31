@@ -4,3 +4,4 @@ namespace: commafeed
 resources:
   - configmap.yaml
   - ../../base/commafeed/
+  - cloudflare.yaml
