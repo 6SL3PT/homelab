@@ -78,3 +78,18 @@ Ensuring that services are deployed only after the secret manager is fully initi
 Even when running the secret manager in a separate cluster to allow this cluster to start up first, maintaining the availability of a self-hosted secret manager remains complex. While a failure of the secret manager itself can be managed, the risk arises when other services depend on it and cannot restart due to the lack of access to the secret provider. This creates a single point of failure that could potentially disrupt the entire cluster.
 
 For these reasons, I decided to transition to a cloud-based secret provider. This approach decouples secret management from the cluster, simplifying maintenance and enhancing the overall reliability and resilience of the system.
+
+## 🌐 Service Exposing
+
+<div style="display: flex; gap: 10px; align-items: center">
+    <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/cloudflare.png" height="30"/>
+    <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/cloudflare-zero-trust.png" height="50"/>
+</div>
+
+I use a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) integrated with [Cloudflare Zero Trust](https://developers.cloudflare.com/cloudflare-one/) to expose services, instead of the more traditional Ingress + VPN setup. 
+
+**Why Cloudflare Tunnel?**
+
+I want to keep things simple and secure.
+
+With this approach, there's no need to deal with public IPs, firewall rules, or complex ingress configurations. Cloudflare Tunnel establishes a secure outbound connection to Cloudflare, and Cloudflare Zero Trust provides fine-grained access control, identity-based policies, and logging—ensuring only the right users can reach internal services. This setup allows me to access services safely without exposing my cluster to the internet. It's a lightweight, secure, and hassle-free way to make services accessible when and where I need them.
