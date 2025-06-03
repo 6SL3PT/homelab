@@ -93,3 +93,12 @@ I use a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/con
 I want to keep things simple and secure.
 
 With this approach, there's no need to deal with public IPs, firewall rules, or complex ingress configurations. Cloudflare Tunnel establishes a secure outbound connection to Cloudflare, and Cloudflare Zero Trust provides fine-grained access control, identity-based policies, and logging—ensuring only the right users can reach internal services. This setup allows me to access services safely without exposing my cluster to the internet. It's a lightweight, secure, and hassle-free way to make services accessible when and where I need them.
+
+## 💾 Backup
+
+<div style="display: flex; gap: 10px; align-items: center">
+    <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/cloudflare.png" height="30"/>
+    <img src="https://cloudnative-pg.io/images/hero_image.svg" height="50"/>
+</div>
+
+I use [CloudNativePG (CNPG)](https://cloudnative-pg.io/), a Kubernetes-native operator for managing PostgreSQL clusters. It includes native support for backup and restore operations via object storage. For this setup, I’ve configured backups to be stored in [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/).
