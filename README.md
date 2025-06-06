@@ -33,8 +33,11 @@ Each domain has its own controllers and configurations, all organized under `inf
 ├── apps
 ├── databases
 ├── clusters # FluxCD bootstrap manifest
-└── infrastructure # Infrastructure for `apps` and `databases`
-    ├── configs # Depends on controllers
+├── infrastructure # Infrastructure for `apps` and `databases`
+│   ├── configs # Depends on infrastructure controllers
+│   └── controllers
+└── monitoring # Monitoring tools for `apps` and `databases`
+    ├── configs # Depends on monitoring controllers
     └── controllers
 ```
 
@@ -51,15 +54,24 @@ The diagram below outlines the planned changes to the folder structure:
 ├── clusters
 │   ├── data # Reconciles changes for `databases` and `infrastructure/**/data`
 │   └── production # Reconciles changes for `apps` and `infrastructure/**/production`
-└── infrastructure # Infrastructure for `apps` and `databases`
+├── infrastructure
+│   ├── configs
+│   │   ├── base # Base configuration
+│   │   ├── data # Config for `databases` infrastructure
+│   │   └── production # Config for `apps` infrastructure
+│   └── controllers
+│       ├── base # Base controller manifest
+│       ├── data # Controller for `databases` infrastructure
+│       └── production # Controller for `apps` infrastructure
+└── monitoring
     ├── configs
     │   ├── base # Base configuration
-    │   ├── data # Config for `databases` infrastructure
-    │   └── production # Config for `apps` infrastructure
+    │   ├── data # Config for `databases` monitor tools
+    │   └── production # Config for `apps` monitor tools
     └── controllers
         ├── base # Base controller manifest
-        ├── data # Controller for `databases` infrastructure
-        └── production # Controller for `apps` infrastructure
+        ├── data # Controller for `databases` monitor tools
+        └── production # Controller for `apps` monitor tools
 ```
 
 ## 🔐 Secret Management
@@ -102,3 +114,8 @@ With this approach, there's no need to deal with public IPs, firewall rules, or 
 </div>
 
 I use [CloudNativePG (CNPG)](https://cloudnative-pg.io/), a Kubernetes-native operator for managing PostgreSQL clusters. It includes native support for backup and restore operations via object storage. For this setup, I’ve configured backups to be stored in [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/).
+
+
+## 🔭 Monitoring
+
+I use the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack), a comprehensive collection of manifests for deploying and managing Grafana and Prometheus.
