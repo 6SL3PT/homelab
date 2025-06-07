@@ -1,0 +1,87 @@
+# NOTE: These must be set manually to the control plane IP addresses
+# kubeEtcd:
+#  endpoints:
+#    - x.y.z.a
+#    - x.y.z.b
+#    - x.y.z.c
+kubeControllerManager:
+  service:
+    selector:
+      k8s-app: kube-controller-manager
+kubeScheduler:
+  service:
+    selector:
+      k8s-app: kube-scheduler
+
+alertmanager:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    podMonitorNamespaceSelector:
+      matchLabels:
+        app.kubernetes.io/component: monitoring
+
+    # Discover all PodMonitors, Probes, PrometheusRules and ServiceMonitors
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+grafana:
+  grafana.ini:
+    date_formats:
+      default_week_start: sunday
+
+  envFromSecret: grafana-env
+
+  sidecar:
+    datasources:
+      enabled: true
+      label: grafana_datasource
+      labelValue: "1"
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: monitoring
+      provider:
+        allowUiUpdates: true
+
+  # Choosing to add data sources here instead of separate configmaps.
+  # Reason: Adding here will trigger a redeploy.
+  # Future improvement: utilize Kustomizeconfig to allow separate configmap files.
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: CommaFeed DB
+          type: postgres
+          url: commafeed-db.6541333.xyz:5432
+          user: commafeed
+          uid: commafeed-db
+          secureJsonData:
+            password: $COMMAFEED_DB_PASSWORD
+          jsonData:
+            database: commafeed
+            sslmode: disable
+            maxOpenConns: 100
+            maxIdleConns: 100
+            maxLifetime: 14400
+            minIdleTimeoutMinutes: 1
+            connMaxLifetime: 14400
+            postgresVersion: 1700
+            timescaledb: false
+          version: 1
+          editable: true
+
+      deleteDatasources:
+        - name: CommaFeed DB
+          orgId: 1
+
+  persistence:
+    enabled: true
+    type: pvc
+    accessModes:
+      - ReadWriteOnce
+    size: 4Gi
