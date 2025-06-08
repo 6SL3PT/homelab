@@ -25,3 +25,6 @@ spec:
       - paths: ["/metadata/annotations/prometheus-operator-validated"]
         target:
           kind: PrometheusRule
+  valuesFrom:
+    - kind: ConfigMap
+      name: kube-prometheus-stack-values
