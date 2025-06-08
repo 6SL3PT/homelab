@@ -5,7 +5,6 @@ configMapGenerator:
   - name: extra-dashboards
     files:
       - extra-dashboards/edb-postgres.json
-      # - extra-dashboards/node-exporter-nodename.json
       # - extra-dashboards/cloudflared.json
     options:
       labels:
