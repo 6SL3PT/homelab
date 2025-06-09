@@ -5,7 +5,7 @@ configMapGenerator:
   - name: extra-dashboards
     files:
       - extra-dashboards/edb-postgres.json
-      # - extra-dashboards/cloudflared.json
+      - extra-dashboards/cloudflared.json
     options:
       labels:
         grafana_dashboard: "1"
