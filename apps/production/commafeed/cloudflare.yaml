@@ -6,7 +6,7 @@ metadata:
 data:
   config.yaml: |
     # Name of the tunnel you want to run
-    tunnel: commafeed
+    tunnel: homelab-commafeed
     credentials-file: /etc/cloudflared/creds/credentials.json
 
     metrics: 0.0.0.0:2000
