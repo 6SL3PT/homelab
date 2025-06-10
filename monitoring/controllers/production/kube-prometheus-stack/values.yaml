@@ -29,6 +29,9 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
 
 grafana:
+  initChownData:
+    enabled: false
+
   grafana.ini:
     date_formats:
       default_week_start: sunday
