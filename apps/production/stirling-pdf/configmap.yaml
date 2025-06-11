@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stirling-pdf-configmap
+data:
+  SERVER_PORT: "8083"
+  JAVA_TOOL_OPTIONS: "-Xmx1800m"
+  DOCKER_ENABLE_SECURITY: "true"
+  SECURITY_ENABLELOGIN: "true"
+  UI_APPNAME: "Homelab PDF"
+  UI_APPNAVBARNAME: "Homelab PDF"

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared
+  namespace: stirling-pdf
+data:
+  config.yaml: |
+    # Name of the tunnel you want to run
+    tunnel: homelab-stirling-pdf
+    credentials-file: /etc/cloudflared/creds/credentials.json
+
+    metrics: 0.0.0.0:2000
+
+    no-autoupdate: true
+
+    ingress:
+    - hostname: pdf.6541333.xyz
+      service: http://stirling-pdf:8083
+
+    # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
+    - service: http_status:404

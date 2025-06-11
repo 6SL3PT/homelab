@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: stirling-pdf
+resources:
+  - configmap.yaml
+  - ../../base/stirling-pdf/
+  - ../../base/cloudflared/
+  - cloudflare.yaml
