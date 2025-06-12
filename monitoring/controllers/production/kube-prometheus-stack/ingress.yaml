@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: grafana.apps.6541333.xyz
+spec:
+  ingressClassName: cilium
+  rules:
+    - host: grafana.apps.6541333.xyz
+      http:
+        paths:
+          - backend:
+              service:
+                name: kube-prometheus-stack-grafana
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

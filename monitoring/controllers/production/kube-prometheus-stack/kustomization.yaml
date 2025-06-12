@@ -4,6 +4,7 @@ namespace: monitoring
 resources:
   - secrets.yaml
   - ../../base/kube-prometheus-stack
+  - ingress.yaml
 
 configMapGenerator:
   - name: kube-prometheus-stack-values
