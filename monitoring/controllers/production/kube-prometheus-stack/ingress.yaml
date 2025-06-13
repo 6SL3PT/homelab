@@ -4,6 +4,7 @@ metadata:
   name: grafana
   annotations:
     external-dns.alpha.kubernetes.io/hostname: grafana.apps.6541333.xyz
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: cilium
   rules:
@@ -17,3 +18,7 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
+  tls:
+    - hosts:
+        - grafana.apps.6541333.xyz
+      secretName: grafana-apps-ingress
