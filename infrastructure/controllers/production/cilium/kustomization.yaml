@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ../../base/cilium
+  - ingress.yaml
 
 configMapGenerator:
   - name: cilium-values
