@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uptime-kuma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uptime-kuma
+
+  template:
+    metadata:
+      labels:
+        app: uptime-kuma
+        try: "0"
+        policy-type: "app"
+
+    spec:
+      containers:
+        - name: uptime-kuma
+          image: louislam/uptime-kuma:1
+
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          envFrom:
+            - secretRef:
+                name: uptime-kuma-container-env
+
+          ports:
+            - containerPort: 3001
+              protocol: TCP
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+      restartPolicy: Always
