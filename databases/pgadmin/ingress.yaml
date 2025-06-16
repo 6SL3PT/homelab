@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: pgadmin.6541333.xyz
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: cilium
+  rules:
+    - host: pgadmin.6541333.xyz
+      http:
+        paths:
+          - backend:
+              service:
+                name: pgadmin
+                port:
+                  number: 3004
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - pgadmin.6541333.xyz
+      secretName: pgadmin-ingress
