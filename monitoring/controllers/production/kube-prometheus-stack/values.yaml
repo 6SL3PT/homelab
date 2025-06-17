@@ -38,10 +38,10 @@ grafana:
 
   envFromSecret: grafana-env
 
-  service:
-    type: LoadBalancer
-    labels:
-      cilium-lb-pool: apps-pool
+  # service:
+  #   type: LoadBalancer
+  #   labels:
+  #     cilium-lb-pool: apps-pool
 
   sidecar:
     datasources:
