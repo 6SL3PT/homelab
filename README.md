@@ -93,6 +93,8 @@ For these reasons, I decided to transition to a cloud-based secret provider. Thi
 
 ## 🌐 Service Exposing
 
+### Publicly
+
 <div style="display: flex; gap: 10px; align-items: center">
     <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/cloudflare.png" height="30"/>
     <img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/cloudflare-zero-trust.png" height="50"/>
@@ -105,6 +107,17 @@ I use a [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/con
 I want to keep things simple and secure.
 
 With this approach, there's no need to deal with public IPs, firewall rules, or complex ingress configurations. Cloudflare Tunnel establishes a secure outbound connection to Cloudflare, and Cloudflare Zero Trust provides fine-grained access control, identity-based policies, and logging—ensuring only the right users can reach internal services. This setup allows me to access services safely without exposing my cluster to the internet. It's a lightweight, secure, and hassle-free way to make services accessible when and where I need them.
+
+### Locally
+
+<div style="display: flex; gap: 10px; align-items: center">
+    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/cilium.svg" height="50"/>
+    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/cert-manager.svg" height="50"/>
+    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/lets-encrypt.svg" height="50"/>
+    <img src="https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/heads/master/docs/img/external-dns.png" height="50"/>
+</div>
+
+I use [Cilium](https://docs.cilium.io/en/stable/network/servicemesh/ingress/), a Kubernetes-native CNI that also provides L7 load balancing to expose HTTP services within the local network. It offers efficient L7 traffic handling, making it a great fit for my workloads (mostly HTTP). For HTTPS support, I’ve integrated [cert-manager](https://cert-manager.io/docs/) with [Let’s Encrypt](https://letsencrypt.org/) to automate TLS certificate provisioning. I also use [ExternalDNS](https://kubernetes-sigs.github.io/external-dns/) to propagate domain records to local IP addresses, enabling access to services via custom domain names within the local environment.
 
 ## 💾 Backup
 
