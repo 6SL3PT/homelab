@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: stirling-pdf
-          image: stirlingtools/stirling-pdf:2.2.1
+          image: stirlingtools/stirling-pdf:2.4.0
 
           securityContext:
             allowPrivilegeEscalation: false
