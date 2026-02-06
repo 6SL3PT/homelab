@@ -1,0 +1,3 @@
+talosconfig
+kubeconfig
+talos/base/*.yaml
