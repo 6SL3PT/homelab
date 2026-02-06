@@ -5,8 +5,8 @@ metadata:
   namespace: kube-system
 spec:
   blocks:
-    - start: "192.168.86.175"
-      stop: "192.168.86.189"
+    - start: "10.134.20.200"
+      stop: "10.134.20.249"
   serviceSelector:
     matchLabels:
       cilium-lb-pool: postgres-pool
@@ -18,8 +18,8 @@ metadata:
   namespace: kube-system
 spec:
   blocks:
-    - start: "192.168.86.200"
-      stop: "192.168.86.205"
+    - start: "10.134.20.100"
+      stop: "10.134.20.149"
 
   serviceSelector:
     matchLabels:
@@ -32,8 +32,8 @@ metadata:
   namespace: kube-system
 spec:
   blocks:
-    - start: "192.168.86.206"
-      stop: "192.168.86.220"
+    - start: "10.134.20.150"
+      stop: "10.134.20.199"
 
   serviceSelector:
     matchLabels:
