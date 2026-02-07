@@ -3,6 +3,5 @@ kind: ConfigMap
 metadata:
   name: commafeed-configmap
 data:
-  CF_APP_PUBLICURL: "https://commafeed-db.6541333.xyz"
-  CF_DATABASE_DRIVERCLASS: "org.postgresql.Driver"
-  CF_DATABASE_URL: "jdbc:postgresql://commafeed-db.6541333.xyz:5432/commafeed"
+  QUARKUS_DATASOURCE_DB_KIND: "postgresql"
+  QUARKUS_DATASOURCE_JDBC_URL: "jdbc:postgresql://commafeed-db.6541333.xyz:5432/commafeed"
