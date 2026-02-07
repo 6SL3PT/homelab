@@ -4,7 +4,7 @@ metadata:
   name: commafeed-db-production-cnpg-v1
 spec:
   description: Postgres cluster for the commafeed application
-  imageName: quay.io/enterprisedb/postgresql:17.4
+  imageName: quay.io/enterprisedb/postgresql:17.7
   instances: 3
 
   monitoring:
@@ -19,6 +19,7 @@ spec:
     size: 5Gi
 
   bootstrap:
+    # initdb:
     recovery:
       source: cluster-backup
       database: commafeed
