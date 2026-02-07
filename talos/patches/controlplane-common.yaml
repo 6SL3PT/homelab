@@ -1,0 +1,15 @@
+machine:
+  kubelet:
+    extraConfig:
+      registerWithTaints:
+        - key: node-role.kubernetes.io/control-plane
+          value: ""
+          effect: PreferNoSchedule
+
+cluster:
+  allowSchedulingOnControlPlanes: true
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true

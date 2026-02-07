@@ -1,3 +1,4 @@
 talosconfig
 kubeconfig
 talos/base/*.yaml
+talos/manifest/*
